@@ -1,9 +1,8 @@
 import React from 'react';
-import { useSetRecoilState } from 'recoil';
-import { IEvento } from '../../interfaces/IEvento'
-import { listaDeEventosState } from '../../state/atom';
-import style from './Evento.module.scss';
+import UseDeletaEvento from '../../state/hooks/useDeletaEvento';
 import EventoCheckbox from './EventoCheckbox';
+import { IEvento } from '../../interfaces/IEvento'
+import style from './Evento.module.scss';
 
 const Evento: React.FC<{ evento: IEvento }> = ({ evento }) => {
 
@@ -11,12 +10,11 @@ const Evento: React.FC<{ evento: IEvento }> = ({ evento }) => {
     style.Evento
   ]
 
-  const setListaEventos = useSetRecoilState(listaDeEventosState);
+  const setDeletaEvento = UseDeletaEvento();
+
 
   const handleDeleteEvent = () => {
-    setListaEventos(prevState => prevState.filter((event) => (
-      event.id !==  evento.id
-    )))
+    setDeletaEvento(evento);
   }
 
   if (evento.completo) {
